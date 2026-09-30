@@ -427,7 +427,6 @@ export function buildPatch(kind: Kind, flags: ParsedFlags, current: Resource | u
     const blocking = many(flags, "blocking");
     if (firing) patch.firingTriggerId = triggerIds(firing, triggers);
     if (blocking) patch.blockingTriggerId = triggerIds(blocking, triggers);
-    if (flags.booleans.has("paused") && flags.booleans.has("unpause")) throw usageError("Pass --paused or --unpause, not both");
     if (flags.booleans.has("paused")) patch.paused = true;
     if (flags.booleans.has("unpause")) patch.paused = false;
   }
@@ -442,8 +441,30 @@ function writeFlags(kind: Kind): { value: string[]; boolean: string[] } {
   };
 }
 
+/** Usage mistakes that need no API data, checked before any request is sent. */
+function validateWriteInput(kind: Kind, action: string, flags: ParsedFlags): void {
+  const { plural } = KINDS[kind];
+  if (flags.booleans.has("paused") && flags.booleans.has("unpause")) throw usageError("Pass --paused or --unpause, not both");
+  if (action === "create") {
+    expectNoArgs(`gtm ${kind} create`, flags.positionals);
+    const file = one(flags, "file");
+    const fromFile = file ? readJsonFile(file) : {};
+    if (!(one(flags, "name") ?? fromFile.name) || !(one(flags, "type") ?? fromFile.type)) {
+      throw usageError(`gtm ${kind} create needs a name and a type`, [`--name "<name>" --type <type>, or both in --file`]);
+    }
+    return;
+  }
+  const [ref, ...extra] = flags.positionals;
+  if (!ref) throw usageError(`gtm ${kind} ${action} needs a ${kind} name or ID`, [`${BIN} gtm ${plural}  # find it`]);
+  if (extra.length) throw usageError(`Unexpected arguments "${extra.join(" ")}" - quote names that contain spaces`, [`${BIN} gtm ${kind} ${action} "<name>"`]);
+  if (action === "update" && !writeFlags(kind).value.some((f) => !CTX_FLAGS.includes(f) && flags.values[f]?.length) && !flags.booleans.has("paused") && !flags.booleans.has("unpause")) {
+    throw usageError(`gtm ${kind} update needs something to change`, ["Pass --file, --name, --param, ..."]);
+  }
+}
+
 async function writeCommand(kind: Kind, action: string, args: string[]): Promise<Record<string, unknown>> {
   const flags = parseFlags(args, action === "delete" ? { value: CTX_FLAGS, boolean: ["dry-run", "full"] } : writeFlags(kind));
+  validateWriteInput(kind, action, flags);
   const dryRun = flags.booleans.has("dry-run");
   const maxValue = flags.booleans.has("full") ? Infinity : 200;
   const ctx = context(flags);
@@ -454,9 +475,7 @@ async function writeCommand(kind: Kind, action: string, args: string[]): Promise
   const label = dryRun ? "dry-run - nothing sent" : undefined;
 
   if (action === "create") {
-    expectNoArgs(`gtm ${kind} create`, flags.positionals);
     const desired = buildPatch(kind, flags, undefined, allTriggers);
-    if (!desired.name || !desired.type) throw usageError(`gtm ${kind} create needs a name and a type`, [`--name "<name>" --type <type>, or both in --file`]);
     const existing = resolve(kind, items, String(desired.name));
     if (existing && String(existing.name) === String(desired.name)) {
       const changes = diff(existing, merge(existing, desired), names, maxValue);
@@ -471,9 +490,7 @@ async function writeCommand(kind: Kind, action: string, args: string[]): Promise
     return { action: `created ${kind}`, id: created[idKey], name: created.name, diff: diff(undefined, created, names, maxValue), help: [`${BIN} gtm status`] };
   }
 
-  const [ref, ...extra] = flags.positionals;
-  if (!ref) throw usageError(`gtm ${kind} ${action} needs a ${kind} name or ID`, [`${BIN} gtm ${plural}  # find it`]);
-  if (extra.length) throw usageError(`Unexpected arguments "${extra.join(" ")}" - quote names that contain spaces`, [`${BIN} gtm ${kind} ${action} "<name>"`]);
+  const [ref] = flags.positionals;
   const current = resolve(kind, items, ref);
 
   if (action === "delete") {

@@ -288,4 +288,17 @@ describe("gtm writes", () => {
     expect(code).toBe(2);
     expect(out).toContain('No trigger \\"Nope\\"');
   });
+
+  it("rejects usage mistakes with exit 2 before any request", async () => {
+    mockFetch(gtmApi);
+    for (const argv of [
+      ["gtm", "tag", "create", "--name", "No type"],
+      ["gtm", "tag", "update", "10"],
+      ["gtm", "tag", "update"],
+      ["gtm", "tag", "update", "10", "--paused", "--unpause"],
+    ]) {
+      expect((await run([...argv, ...CTX])).code).toBe(2);
+    }
+    expect(calls).toEqual([]);
+  });
 });

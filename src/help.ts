@@ -3,12 +3,11 @@ export const TOP_LEVEL_HELP = `google-marketing-axi - GA4 reporting and Google T
 Run with no arguments for the home view: cached defaults and suggested next
 steps.
 
-commands[6]{command,what}:
+commands[5]{command,what}:
   whoami,Credentials in use, quota project, and OAuth scopes (alias: auth status)
   ga,GA4 (read only): accounts, use, report, realtime, dims
   gtm,Tag Manager: use, accounts, containers, workspaces, tags, triggers, variables, status, diffed writes, version create
   setup,Install SessionStart hooks for Claude Code, Codex and OpenCode
-  update,Self-update to the latest release
   <cmd> <sub> --help,Per-subcommand usage, e.g. \`ga report --help\`
 
 Flags:
