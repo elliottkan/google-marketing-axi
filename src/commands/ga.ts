@@ -112,7 +112,7 @@ async function accountsCommand(args: string[]): Promise<Record<string, unknown>>
   if (rows.length === 0) return { accounts: "0 GA4 accounts visible to the signed-in user" };
   const current = readDefaults().gaProperty;
   return {
-    count: `${summaries.length} accounts, ${rows.filter((r) => r.property).length} properties`,
+    count: `${plural(summaries.length, "account")}, ${plural(rows.filter((r) => r.property).length, "property", "properties")}`,
     properties: rows,
     ...(current ? { default: current } : {}),
     help: [`${BIN} ga use <property>`, `${BIN} ga report --property <property> --metrics sessions --dims sessionDefaultChannelGroup`],
@@ -205,6 +205,8 @@ async function dimsCommand(args: string[]): Promise<Record<string, unknown>> {
     ...(all ? {} : { help: [`${BIN} ga dims <query>  # search by name`, `${BIN} ga dims --all`] }),
   };
 }
+
+const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 export async function gaCommand(args: string[]): Promise<Record<string, unknown> | string> {
   const [sub, ...rest] = args;
