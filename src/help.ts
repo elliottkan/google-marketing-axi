@@ -1,4 +1,4 @@
-export const TOP_LEVEL_HELP = `google-analytics-axi - GA4 reporting and Google Tag Manager for agents (AXI)
+export const TOP_LEVEL_HELP = `google-marketing-axi - GA4 reporting and Google Tag Manager for agents (AXI)
 
 Run with no arguments for the home view: cached defaults and suggested next
 steps.
@@ -12,13 +12,13 @@ commands[6]{command,what}:
   <cmd> <sub> --help,Per-subcommand usage, e.g. \`ga report --help\`
 
 Flags:
-  --help                 This index; \`google-analytics-axi <command> [sub] --help\` for details
+  --help                 This index; \`google-marketing-axi <command> [sub] --help\` for details
   -v, --version          Print the version
 
 Examples:
-  google-analytics-axi ga report --property 123456789 --metrics sessions,totalUsers --dims sessionDefaultChannelGroup --range 28d
-  google-analytics-axi gtm use "https://tagmanager.google.com/#/container/accounts/<a>/containers/<c>/workspaces/<w>"
-  google-analytics-axi gtm tag update "GA4 - purchase" --param eventName=purchase --dry-run
+  google-marketing-axi ga report --property 123456789 --metrics sessions,totalUsers --dims sessionDefaultChannelGroup --range 28d
+  google-marketing-axi gtm use "https://tagmanager.google.com/#/container/accounts/<a>/containers/<c>/workspaces/<w>"
+  google-marketing-axi gtm tag update "GA4 - purchase" --param eventName=purchase --dry-run
 
 Notes:
   Auth is Google Application Default Credentials (gcloud user login); no
@@ -34,4 +34,4 @@ Exit codes:
 Env:
   GOOGLE_APPLICATION_CREDENTIALS  Credentials file (default: ~/.config/gcloud/application_default_credentials.json)
   GOOGLE_CLOUD_QUOTA_PROJECT      Override the file's quota_project_id (sent as x-goog-user-project)
-  XDG_CACHE_HOME                  Where cached defaults live (default: ~/.cache/google-analytics-axi)`;
+  XDG_CACHE_HOME                  Where cached defaults live (default: ~/.cache/google-marketing-axi)`;

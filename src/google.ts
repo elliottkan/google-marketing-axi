@@ -42,7 +42,7 @@ export function googleError(status: number, body: GoogleErrorBody | undefined, q
   if (status === 429) return new AxiError(`Rate limited: ${message}`, "rate_limited", ["Wait a minute and retry"]);
   if (status === 400) {
     const field = /Field (\S+) is not a valid (metric|dimension)/.exec(message);
-    return new AxiError(`Google rejected the request: ${message.trim()}`, "bad_request", field ? [`google-analytics-axi ga dims ${field[1]}  # search valid ${field[2]}s`] : []);
+    return new AxiError(`Google rejected the request: ${message.trim()}`, "bad_request", field ? [`google-marketing-axi ga dims ${field[1]}  # search valid ${field[2]}s`] : []);
   }
   return new AxiError(message, "api_error");
 }

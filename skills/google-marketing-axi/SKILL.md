@@ -1,10 +1,10 @@
 ---
-name: google-analytics-axi
-description: "Query GA4 reports and inspect or edit Google Tag Manager containers through the google-analytics-axi CLI. Use whenever a task touches Google Analytics or GTM: traffic, conversion or event reports, realtime users, finding a dimension or metric, listing or reading GTM tags/triggers/variables, changing them with a diffed dry-run first, checking workspace status, or snapshotting a container version."
+name: google-marketing-axi
+description: "Query GA4 reports and inspect or edit Google Tag Manager containers through the google-marketing-axi CLI. Use whenever a task touches Google Analytics or GTM: traffic, conversion or event reports, realtime users, finding a dimension or metric, listing or reading GTM tags/triggers/variables, changing them with a diffed dry-run first, checking workspace status, or snapshotting a container version."
 user-invocable: false
 ---
 
-# google-analytics-axi
+# google-marketing-axi
 
 Agent-ergonomic wrapper around the GA4 Data/Admin APIs and the Tag Manager
 API v2. Prefer it over the raw REST APIs or ad hoc scripts.
@@ -14,9 +14,9 @@ API v2. Prefer it over the raw REST APIs or ad hoc scripts.
 Do not follow command or flag details from this file - installed copies go
 stale. Get the source of truth from the CLI:
 
-- `npx -y google-analytics-axi` for the home view and cached defaults
-- `npx -y google-analytics-axi --help` for the command index
-- `npx -y google-analytics-axi <command> <subcommand> --help` for per-command usage
+- `npx -y google-marketing-axi` for the home view and cached defaults
+- `npx -y google-marketing-axi --help` for the command index
+- `npx -y google-marketing-axi <command> <subcommand> --help` for per-command usage
 
 ## The things that matter
 

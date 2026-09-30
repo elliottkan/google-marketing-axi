@@ -167,5 +167,5 @@ export function suggestions(kind: Kind, items: Resource[], ref: string): string[
   const { idKey, plural } = KINDS[kind];
   const needle = ref.toLowerCase();
   const close = items.filter((i) => String(i.name).toLowerCase().includes(needle)).slice(0, 5);
-  return [...close.map((i) => `Did you mean ${i[idKey]} (${i.name})?`), `google-analytics-axi gtm ${plural} <search>`];
+  return [...close.map((i) => `Did you mean ${i[idKey]} (${i.name})?`), `google-marketing-axi gtm ${plural} <search>`];
 }

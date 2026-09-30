@@ -39,7 +39,7 @@ export function reloginSuggestions(quotaProject = "<quota-project>"): string[] {
   return [
     `Re-login: ${RELOGIN_COMMAND}`,
     `Then re-add "quota_project_id": "${quotaProject}" to ${credentialsPath()} by hand (\`gcloud auth application-default set-quota-project\` fails because the Cloud Resource Manager API is disabled)`,
-    "Check the result with `google-analytics-axi whoami`",
+    "Check the result with `google-marketing-axi whoami`",
   ];
 }
 

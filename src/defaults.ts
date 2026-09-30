@@ -17,7 +17,7 @@ export interface Defaults {
 
 export function defaultsPath(): string {
   const base = process.env.XDG_CACHE_HOME ?? join(homedir(), ".cache");
-  return join(base, "google-analytics-axi", "defaults.json");
+  return join(base, "google-marketing-axi", "defaults.json");
 }
 
 export function readDefaults(): Defaults {
@@ -45,7 +45,7 @@ export function parseGtmUrl(input: string): GtmContext {
   const match = /accounts\/(\d+)\/containers\/(\d+)(?:\/workspaces\/(\d+))?/.exec(input);
   if (!match) {
     throw usageError(`Could not find accounts/<id>/containers/<id> in "${input}"`, [
-      "google-analytics-axi gtm use https://tagmanager.google.com/#/container/accounts/<account>/containers/<container>/workspaces/<workspace>",
+      "google-marketing-axi gtm use https://tagmanager.google.com/#/container/accounts/<account>/containers/<container>/workspaces/<workspace>",
     ]);
   }
   return { account: match[1]!, container: match[2]!, ...(match[3] ? { workspace: match[3] } : {}) };
@@ -60,5 +60,5 @@ export function parseGaProperty(input: string): string {
   if (bare) return bare[1]!;
   const inUrl = /p(\d+)(?:\/|$)/.exec(input);
   if (inUrl && input.includes("analytics.google.com")) return inUrl[1]!;
-  throw usageError(`"${input}" is not a GA4 property ID`, ["google-analytics-axi ga accounts  # lists every property ID"]);
+  throw usageError(`"${input}" is not a GA4 property ID`, ["google-marketing-axi ga accounts  # lists every property ID"]);
 }

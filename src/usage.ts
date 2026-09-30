@@ -12,6 +12,6 @@ export function usageError(message: string, suggestions: string[] = []): AxiErro
 /** Rejects leftover arguments on commands that take none. */
 export function expectNoArgs(command: string, args: string[]): void {
   if (args.length > 0) {
-    throw usageError(`${command} takes no arguments, got "${args.join(" ")}"`, [`Run \`google-analytics-axi ${command}\``]);
+    throw usageError(`${command} takes no arguments, got "${args.join(" ")}"`, [`Run \`google-marketing-axi ${command}\``]);
   }
 }

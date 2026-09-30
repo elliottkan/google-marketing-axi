@@ -4,7 +4,7 @@ import { parseGaProperty, readDefaults, writeDefaults } from "../defaults.js";
 import { FILTER_SYNTAX, parseFilters, parseOrder, parseRange, shapeReport } from "../report.js";
 import { expectNoArgs, usageError } from "../usage.js";
 
-const BIN = "google-analytics-axi";
+const BIN = "google-marketing-axi";
 
 export const GA_HELP: Record<string, string> = {
   "": `${BIN} ga <accounts|use|report|realtime|dims> [flags]

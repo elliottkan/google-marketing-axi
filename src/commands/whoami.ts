@@ -3,15 +3,15 @@ import { accessToken, loadCredentials, reloginSuggestions, SCOPES } from "../aut
 import { parseFlags } from "../flags.js";
 import { expectNoArgs } from "../usage.js";
 
-export const WHOAMI_HELP = `google-analytics-axi whoami
+export const WHOAMI_HELP = `google-marketing-axi whoami
 
 Show which credentials are in use, their quota project, the OAuth scopes the
 current access token carries, and what that lets each command do. Never
 prints token or secret values. \`auth status\` is an alias.
 
 Examples:
-  google-analytics-axi whoami
-  google-analytics-axi auth status`;
+  google-marketing-axi whoami
+  google-marketing-axi auth status`;
 
 export async function whoamiCommand(args: string[]): Promise<Record<string, unknown>> {
   expectNoArgs("whoami", parseFlags(args, {}).positionals);

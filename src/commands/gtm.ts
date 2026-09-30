@@ -19,7 +19,7 @@ import {
 } from "../gtm.js";
 import { expectNoArgs, usageError } from "../usage.js";
 
-const BIN = "google-analytics-axi";
+const BIN = "google-marketing-axi";
 const CTX_FLAGS = ["account", "container", "workspace"];
 const CTX_HELP = `  --account <id>       GTM account (default: \`gtm use\` cache)
   --container <id>     GTM container (default: \`gtm use\` cache)
