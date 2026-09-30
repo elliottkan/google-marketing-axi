@@ -73,6 +73,7 @@ export function readable(resource: Resource, triggerNames: Map<string, string> =
   const name = (id: string) => triggerNames.get(id) ?? BUILT_IN_TRIGGERS[id] ?? `unknown trigger ${id}`;
   for (const [key, value] of Object.entries(resource)) {
     if (PLUMBING.includes(key)) continue;
+    if (key === "paused" && value === false) continue; // unset and false both mean "not paused"
     if (value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length === 0) continue;
     if (CONDITION_FIELDS.includes(key) && Array.isArray(value)) out[key] = (value as Condition[]).map(conditionText);
     else if (isParameter(value)) out[key] = flattenParam(value);
