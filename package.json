@@ -8,7 +8,7 @@
   "repository": { "type": "git", "url": "git+https://github.com/elliottkan/google-marketing-axi.git" },
   "homepage": "https://github.com/elliottkan/google-marketing-axi#readme",
   "bugs": "https://github.com/elliottkan/google-marketing-axi/issues",
-  "bin": { "google-marketing-axi": "./dist/bin/google-marketing-axi.js" },
+  "bin": { "google-marketing-axi": "dist/bin/google-marketing-axi.js" },
   "files": ["dist", "skills/google-marketing-axi", "LICENSE", "README.md"],
   "engines": { "node": ">=20" },
   "scripts": {
