@@ -11,7 +11,7 @@ export const SCOPES = {
 };
 
 export const RELOGIN_COMMAND =
-  "gcloud auth application-default login --client-id-file=$HOME/.config/harvey-sheets/oauth-client.json --scopes=https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/tagmanager.edit.containers,https://www.googleapis.com/auth/tagmanager.edit.containerversions,https://www.googleapis.com/auth/cloud-platform";
+  "gcloud auth application-default login --client-id-file=<your-desktop-oauth-client.json> --scopes=https://www.googleapis.com/auth/analytics.readonly,https://www.googleapis.com/auth/tagmanager.edit.containers,https://www.googleapis.com/auth/tagmanager.edit.containerversions,https://www.googleapis.com/auth/cloud-platform";
 
 interface AuthorizedUser {
   type: string;
@@ -38,7 +38,7 @@ export function credentialsPath(): string {
 export function reloginSuggestions(quotaProject = "<quota-project>"): string[] {
   return [
     `Re-login: ${RELOGIN_COMMAND}`,
-    `Then re-add "quota_project_id": "${quotaProject}" to ${credentialsPath()} by hand (\`gcloud auth application-default set-quota-project\` fails because the Cloud Resource Manager API is disabled)`,
+    `Then re-add "quota_project_id": "${quotaProject}" to ${credentialsPath()} (\`gcloud auth application-default set-quota-project <project>\`, or edit the file by hand if that fails because the Cloud Resource Manager API is disabled)`,
     "Check the result with `google-marketing-axi whoami`",
   ];
 }
